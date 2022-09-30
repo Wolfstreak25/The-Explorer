@@ -10,29 +10,35 @@ public class PlayerController : MonoBehaviour
     public float groundCheckRadius;
     public LayerMask groundlayer;
     private bool istouchingGround;
+    private float maxYvel;
     public float speed;
     public float jump;
     bool crouch = false;
+    private Vector3 respawn;
     private Rigidbody2D rigidbody2d;
-
-    float offX,offY,sizeX,sizeY;
-    private BoxCollider2D boxCol;
-    private CapsuleCollider2D capsCol;
     private void Awake() 
     {
         Debug.Log("Player controller awake");
-        boxCol = this.GetComponent<BoxCollider2D>();
+        respawn = transform.position;
         rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
     }
     public void Update()
     {
+        
         istouchingGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundlayer);
         float horizontalspeed = Input.GetAxisRaw("Horizontal");
         float VerticalInput = Input.GetAxis("Vertical");
-        
+        maxYvel = rigidbody2d.velocity.y ;
         //PlayerAnimations
         PlayerAnimations(horizontalspeed, VerticalInput);
-        
+        if(maxYvel <= -10 && istouchingGround != true )
+        {
+            Debug.Log("falling");
+            maxYvel = 0 ;
+            Death();
+            transform.position = respawn;
+            Debug.Log("Player respawned");
+        }
         //Character movement
         MoveCharacter(horizontalspeed, VerticalInput);
     }
@@ -82,28 +88,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Crouch(bool crouch)
     {
-        /*if (crouch == true)
-        {
-            offX = -0.1284856f;               
-            offY = 0.5952377f;                
-
-            sizeX = 0.8512849f;               
-            sizeY = 1.315794f;     
-        }         
-
-        else
-        {
-            offX = -0.002953231f;             
-            offY = 0.9699736f;               
-
-            sizeX = 0.5884072f;              
-            sizeY = 2.065266f;              
-        }
-        */
         animator.SetBool("Crouch", crouch);
-
-        //boxCol.size = new Vector2(sizeX, sizeY);
-        //boxCol.offset = new Vector2(offX, offY);
     }
     public void Jump(float vertical)
     {    
@@ -112,17 +97,31 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("Jump");            
         }
     }
+    public void Death()
+    {    
+            animator.SetTrigger("Death");   
+            Debug.Log("Player died");         
+    }
     private void MoveCharacter(float horizontal, float vertical)
     {
         //Move charachter Horizontally
         Vector3 position = transform.position;
-        position.x += horizontal * speed * Time.deltaTime;
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            position.x += horizontal * speed * 3 * Time.deltaTime;
+        }
+        else
+        {
+            position.x += horizontal * speed * Time.deltaTime;
+        }
+        
         transform.position = position ;
 
         //Move charachter vertically
         if(vertical > 0 && istouchingGround)
-        {
-            rigidbody2d.AddForce(new Vector2(0f, jump),ForceMode2D.Force);
+        {   
+            maxYvel = 0;
+            rigidbody2d.AddForce(new Vector2(0f, jump),ForceMode2D.Force); 
         }
     }
 }
