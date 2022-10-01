@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public ScoreManager scoreManager;
     public Animator animator;
     public Collider2D collider2d;
     public Transform groundCheck;
@@ -13,14 +14,20 @@ public class PlayerController : MonoBehaviour
     private float maxYvel;
     public float speed;
     public float jump;
-    bool crouch = false;
     private Vector3 respawn;
+    bool crouch = false;
+    
     private Rigidbody2D rigidbody2d;
     private void Awake() 
     {
         Debug.Log("Player controller awake");
         respawn = transform.position;
         rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
+    }
+    public void PickUpObject()
+    {
+        Debug.Log("Object picked up");
+        scoreManager.IncreaseScore(10);
     }
     public void Update()
     {
@@ -36,8 +43,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("falling");
             maxYvel = 0 ;
             Death();
-            transform.position = respawn;
-            Debug.Log("Player respawned");
+            Spawn(respawn);
         }
         //Character movement
         MoveCharacter(horizontalspeed, VerticalInput);
@@ -123,5 +129,10 @@ public class PlayerController : MonoBehaviour
             maxYvel = 0;
             rigidbody2d.AddForce(new Vector2(0f, jump),ForceMode2D.Force); 
         }
+    }
+    public void Spawn (Vector3 respawn)
+    {
+        transform.position = respawn;
+        Debug.Log("Player Spawned");
     }
 }
