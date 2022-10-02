@@ -8,7 +8,7 @@ public class FollowPlayer : MonoBehaviour
     private Vector3 Position;
     void Update()
     {
-        Position = Player.transform.position + new Vector3(0, 3, -10);
+        Position = Player.transform.position + new Vector3(0, 3, -15);
         transform.position = Position;
     }
 }

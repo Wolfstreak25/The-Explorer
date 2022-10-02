@@ -9,11 +9,13 @@ public class CollectibleController : MonoBehaviour
         Debug.Log("collectible Trigger");
         //if(collision.gameObject.CompareTag("Player"))
         if(collision.gameObject.GetComponent<PlayerController>() != null)
-
-        //collected;
-        Debug.Log("The Player picked collectible ");
-        PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-        playerController.PickUpObject();
-        Destroy(gameObject);
+        {
+            //collected;
+            Debug.Log("The Player picked collectible ");
+            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
+            playerController.PickUpObject();
+            Destroy(gameObject);
+        }
+        
     }
 }

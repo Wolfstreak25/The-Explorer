@@ -1,6 +1,7 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,6 +24,31 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Player controller awake");
         respawn = transform.position;
         rigidbody2d = gameObject.GetComponent<Rigidbody2D>();
+    }
+    public void KillPlayer()
+    {
+        HealthManager.health--;
+        if(HealthManager.health <= 0)
+        {
+            Debug.Log("Player Killed");
+            Death();
+        }
+        else
+        {
+            StartCoroutine(GetHurt());
+        }
+        
+    }
+    IEnumerator GetHurt()
+    {
+        Physics2D.IgnoreLayerCollision(0, 6);
+        animator.SetTrigger("EnemyAttack");
+        yield return new WaitForSeconds(3);
+        Physics2D.IgnoreLayerCollision(0, 6, false);
+    }
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(0);
     }
     public void PickUpObject()
     {
@@ -105,8 +131,9 @@ public class PlayerController : MonoBehaviour
     }
     public void Death()
     {    
-            animator.SetTrigger("Death");   
-            Debug.Log("Player died");         
+            animator.SetTrigger("Death");  
+            Debug.Log("Player died");
+            ReloadLevel();         
     }
     private void MoveCharacter(float horizontal, float vertical)
     {
