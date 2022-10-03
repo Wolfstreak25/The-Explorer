@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public ScoreManager scoreManager;
+    public GameOverController gameOverController;
     public Animator animator;
     public Collider2D collider2d;
     public Transform groundCheck;
@@ -46,10 +47,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(3);
         Physics2D.IgnoreLayerCollision(0, 6, false);
     }
-    public void ReloadLevel()
-    {
-        SceneManager.LoadScene(0);
-    }
+    
     public void PickUpObject()
     {
         Debug.Log("Object picked up");
@@ -133,7 +131,8 @@ public class PlayerController : MonoBehaviour
     {    
             animator.SetTrigger("Death");  
             Debug.Log("Player died");
-            ReloadLevel();         
+            gameOverController.PlayerDied();
+            this.enabled = false;         
     }
     private void MoveCharacter(float horizontal, float vertical)
     {
