@@ -19,6 +19,8 @@ public class LevelOverController : MonoBehaviour
         {
             //Level is Over;
             Debug.Log("level Finished by The Player");
+           //LevelManager.Instance.SetLevelStatus(SceneManager.GetActiveScene().name, LevelStatus.Completed);
+            LevelManager.Instance.MarkCurrentComplete();
             nextlevel.LevelComplete();
         }        
     }

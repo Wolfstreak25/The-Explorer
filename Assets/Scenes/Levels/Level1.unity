@@ -1606,6 +1606,7 @@ GameObject:
   - component: {fileID: 815489366}
   - component: {fileID: 815489365}
   - component: {fileID: 815489370}
+  - component: {fileID: 815489371}
   m_Layer: 0
   m_Name: LevelEnd
   m_TagString: Untagged
@@ -1625,7 +1626,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7955154018bfe734c8da662bc2ef2bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextlevel: {fileID: 365733820}
 --- !u!111 &815489366
 Animation:
   m_ObjectHideFlags: 0
@@ -1767,6 +1767,19 @@ PolygonCollider2D:
       - {x: 0.12109375, y: -0.41015625}
       - {x: 0.1171875, y: -0.1171875}
       - {x: 0.15625, y: -0.0703125}
+--- !u!114 &815489371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815489364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f3c194056a6244ab174175097b7899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextlevel: {fileID: 365733820}
 --- !u!4 &815771343 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6590750285134360970, guid: 44b13c57ec4c4db4bb0cda1f68117e84,
