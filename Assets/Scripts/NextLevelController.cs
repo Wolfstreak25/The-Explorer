@@ -13,12 +13,13 @@ public class NextLevelController : MonoBehaviour
     public Button LoadLevel;    
     public Button Quit;    
 
-    
+    Scene scene;
     private void Awake() 
     {
         Replay.onClick.AddListener(ReloadLevel);
         LoadLevel.onClick.AddListener(LoadNext);
         Quit.onClick.AddListener(QuitGame);
+        scene =  SceneManager.GetActiveScene();
     }
     public void LevelComplete()
     {
@@ -26,14 +27,15 @@ public class NextLevelController : MonoBehaviour
     }
     private void ReloadLevel()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(scene.buildIndex);
     }
     private void LoadNext()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(scene.buildIndex + 1);
     }
     private void QuitGame()
     {
+        SceneManager.LoadScene(0);
         Debug.Log("Quit Game");
     }
-}
+} 
