@@ -23,7 +23,8 @@ public class NextLevelController : MonoBehaviour
     }
     public void LevelComplete()
     {
-        gameObject.SetActive(true); 
+        gameObject.SetActive(true);
+        SoundManager.Instance.Play(Sounds.Complete); 
     }
     private void ReloadLevel()
     {
@@ -32,6 +33,7 @@ public class NextLevelController : MonoBehaviour
     private void LoadNext()
     {
         SceneManager.LoadScene(scene.buildIndex + 1);
+        SoundManager.Instance.Play(Sounds.Next);
     }
     private void QuitGame()
     {

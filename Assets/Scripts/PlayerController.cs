@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     bool crouch = false;
     
     private Rigidbody2D rigidbody2d;
+    
     private void Awake() 
     {
         Debug.Log("Player controller awake");
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
     {
         Physics2D.IgnoreLayerCollision(0, 6);
         animator.SetTrigger("EnemyAttack");
+        SoundManager.Instance.Play(Sounds.EnemyAttack);
         yield return new WaitForSeconds(3);
         Physics2D.IgnoreLayerCollision(0, 6, false);
     }
@@ -51,6 +53,7 @@ public class PlayerController : MonoBehaviour
     public void PickUpObject()
     {
         Debug.Log("Object picked up");
+        SoundManager.Instance.Play(Sounds.Collectible);
         scoreManager.IncreaseScore(10);
     }
     public void Update()
@@ -129,6 +132,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Death()
     {    
+            SoundManager.Instance.Play(Sounds.PlayerDeath);
             animator.SetTrigger("Death");  
             Debug.Log("Player died");
             gameOverController.PlayerDied();

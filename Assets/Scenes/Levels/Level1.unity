@@ -1604,7 +1604,6 @@ GameObject:
   - component: {fileID: 815489368}
   - component: {fileID: 815489367}
   - component: {fileID: 815489366}
-  - component: {fileID: 815489365}
   - component: {fileID: 815489370}
   - component: {fileID: 815489371}
   m_Layer: 0
@@ -1614,18 +1613,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &815489365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815489364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7955154018bfe734c8da662bc2ef2bd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!111 &815489366
 Animation:
   m_ObjectHideFlags: 0
@@ -4462,6 +4449,10 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1097097809, guid: 83fea48d62fd3724395e6eb44927104b, type: 3}
+      propertyPath: CollectObj
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1097097809, guid: 83fea48d62fd3724395e6eb44927104b, type: 3}
       propertyPath: scoreManager
       value: 
       objectReference: {fileID: 2123779043}
@@ -4551,7 +4542,7 @@ PrefabInstance:
     - target: {fileID: 6590750285134360970, guid: 44b13c57ec4c4db4bb0cda1f68117e84,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.626
       objectReference: {fileID: 0}
     - target: {fileID: 6590750285134360970, guid: 44b13c57ec4c4db4bb0cda1f68117e84,
         type: 3}

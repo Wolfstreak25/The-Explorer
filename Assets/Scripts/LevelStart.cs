@@ -12,6 +12,7 @@ public class LevelStart : MonoBehaviour
     {
         
         Debug.Log("Level Start");
+        SoundManager.Instance.Play(Sounds.Start);
         spawn = transform.position;
         Player.transform.position = spawn ;
         Debug.Log("Player Spawned");

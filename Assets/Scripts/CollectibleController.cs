@@ -13,6 +13,7 @@ public class CollectibleController : MonoBehaviour
             //collected;
             Debug.Log("The Player picked collectible ");
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
+            
             playerController.PickUpObject();
             Destroy(gameObject);
         }
