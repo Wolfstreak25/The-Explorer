@@ -15,12 +15,19 @@ public class PlayerController : MonoBehaviour
     private bool istouchingGround;
     private float maxYvel;
     public float speed;
+    private bool shielded;
+    [SerializeField]
+    private GameObject Shield;
     public float jump;
     private Vector3 respawn;
     bool crouch = false;
+    private bool doubleJump;
     
     private Rigidbody2D rigidbody2d;
-    
+    private void Start() 
+    {
+        shielded = false;
+    }
     private void Awake() 
     {
         Debug.Log("Player controller awake");
@@ -43,11 +50,11 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator GetHurt()
     {
-        Physics2D.IgnoreLayerCollision(0, 6);
         animator.SetTrigger("EnemyAttack");
         SoundManager.Instance.Play(Sounds.EnemyAttack);
+        Shield.SetActive(true);
         yield return new WaitForSeconds(3);
-        Physics2D.IgnoreLayerCollision(0, 6, false);
+        NoShield();
     }
     
     public void PickUpObject()
@@ -58,19 +65,19 @@ public class PlayerController : MonoBehaviour
     }
     public void Update()
     {
-        
+        checkShield();
         istouchingGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundlayer);
         float horizontalspeed = Input.GetAxisRaw("Horizontal");
         float VerticalInput = Input.GetAxis("Vertical");
         maxYvel = rigidbody2d.velocity.y ;
         //PlayerAnimations
         PlayerAnimations(horizontalspeed, VerticalInput);
-        if(maxYvel <= -10 && istouchingGround != true )
+        if(maxYvel <= -30 && istouchingGround != true )
         {
             Debug.Log("falling");
             maxYvel = 0 ;
             Death();
-            Spawn(respawn);
+            Invoke("Spawn(respawn)",3f);
         }
         //Character movement
         MoveCharacter(horizontalspeed, VerticalInput);
@@ -125,9 +132,13 @@ public class PlayerController : MonoBehaviour
     }
     public void Jump(float vertical)
     {    
-		if (vertical > 0 && istouchingGround )
+		if (Input.GetKey(KeyCode.W) && istouchingGround )
         {
             animator.SetTrigger("Jump");            
+        }
+        else if (Input.GetKey(KeyCode.W) && doubleJump )
+        {
+            animator.SetTrigger("DJump");            
         }
     }
     public void Death()
@@ -154,11 +165,50 @@ public class PlayerController : MonoBehaviour
         transform.position = position ;
 
         //Move charachter vertically
-        if(vertical > 0 && istouchingGround)
-        {   
+        /*
+        if(Input.GetButtonDown("Jump"))
+        {
             maxYvel = 0;
-            rigidbody2d.AddForce(new Vector2(0f, jump),ForceMode2D.Force); 
+            if(istouchingGround || doubleJump)
+            {
+                rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x,jump);
+            }
         }
+        */
+        if(istouchingGround && !Input.GetKey(KeyCode.W))
+        {
+            doubleJump = false;
+        }
+        else if(istouchingGround && Input.GetKey(KeyCode.W))
+        {
+            doubleJump = true;
+        }
+        if(Input.GetKey(KeyCode.W) )
+        {
+            if(istouchingGround || doubleJump)
+            {   
+                maxYvel = 0;
+                //rigidbody2d.AddForce(new Vector2(0f, jump),ForceMode2D.Force);
+                rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x,jump);
+                //doubleJump = !doubleJump; 
+            }
+        }
+    }
+    void checkShield()
+    {
+        if (Input.GetKeyDown(KeyCode.F) && !shielded)
+        {
+            Shield.SetActive(true);
+            Physics2D.IgnoreLayerCollision(0, 6);
+            shielded = true;
+            Invoke("NoShield",3f);
+        }
+    }
+    void NoShield()
+    {
+        Physics2D.IgnoreLayerCollision(0, 6, false);
+        Shield.SetActive(false);
+        shielded = false;
     }
     public void Spawn (Vector3 respawn)
     {

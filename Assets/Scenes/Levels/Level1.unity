@@ -2611,24 +2611,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3505489647617920282}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1798266830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1798266818}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c94535c279e4e2442bb7136f4e1cb45b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hearts:
-  - {fileID: 1828684072}
-  - {fileID: 997916072}
-  - {fileID: 1176969163}
-  fullHeart: {fileID: 21300000, guid: d1a099ca853c00d4a95fa3b06100254c, type: 3}
-  blankHeart: {fileID: 21300000, guid: c052694e41968c24e90275968c3b3adb, type: 3}
 --- !u!1 &1828684070
 GameObject:
   m_ObjectHideFlags: 0
@@ -4445,14 +4427,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1097097809, guid: 83fea48d62fd3724395e6eb44927104b, type: 3}
-      propertyPath: jump
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1097097809, guid: 83fea48d62fd3724395e6eb44927104b, type: 3}
-      propertyPath: CollectObj
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1097097809, guid: 83fea48d62fd3724395e6eb44927104b, type: 3}
       propertyPath: scoreManager
       value: 
       objectReference: {fileID: 2123779043}
@@ -4460,6 +4434,18 @@ PrefabInstance:
       propertyPath: gameOverController
       value: 
       objectReference: {fileID: 420532986}
+    - target: {fileID: 1798266830, guid: 83fea48d62fd3724395e6eb44927104b, type: 3}
+      propertyPath: hearts.Array.data[0]
+      value: 
+      objectReference: {fileID: 1828684072}
+    - target: {fileID: 1798266830, guid: 83fea48d62fd3724395e6eb44927104b, type: 3}
+      propertyPath: hearts.Array.data[1]
+      value: 
+      objectReference: {fileID: 997916072}
+    - target: {fileID: 1798266830, guid: 83fea48d62fd3724395e6eb44927104b, type: 3}
+      propertyPath: hearts.Array.data[2]
+      value: 
+      objectReference: {fileID: 1176969163}
     - target: {fileID: 6495406718029227238, guid: 83fea48d62fd3724395e6eb44927104b,
         type: 3}
       propertyPath: m_RootOrder
