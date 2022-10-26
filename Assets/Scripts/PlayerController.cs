@@ -131,14 +131,17 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Crouch", crouch);
     }
     public void Jump(float vertical)
-    {    
-		if (Input.GetKey(KeyCode.W) && istouchingGround )
+    {
+        if(Input.GetKey(KeyCode.W))
         {
-            animator.SetTrigger("Jump");            
-        }
-        else if (Input.GetKey(KeyCode.W) && doubleJump )
-        {
-            animator.SetTrigger("DJump");            
+            if(istouchingGround)
+            {
+                animator.SetTrigger("Jump"); 
+            }
+            else if (!doubleJump)
+            {
+                animator.SetTrigger("DJump");
+            }
         }
     }
     public void Death()
@@ -175,22 +178,20 @@ public class PlayerController : MonoBehaviour
             }
         }
         */
-        if(istouchingGround && !Input.GetKey(KeyCode.W))
+        if(Input.GetKey(KeyCode.W))
         {
-            doubleJump = false;
-        }
-        else if(istouchingGround && Input.GetKey(KeyCode.W))
-        {
-            doubleJump = true;
-        }
-        if(Input.GetKey(KeyCode.W) )
-        {
-            if(istouchingGround || doubleJump)
-            {   
+            if(istouchingGround)
+            {
+                doubleJump = false;
                 maxYvel = 0;
                 //rigidbody2d.AddForce(new Vector2(0f, jump),ForceMode2D.Force);
                 rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x,jump);
                 //doubleJump = !doubleJump; 
+            }
+            else if (!doubleJump)
+            {
+                doubleJump = true;
+                rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x,jump);
             }
         }
     }

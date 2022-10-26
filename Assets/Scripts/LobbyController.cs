@@ -8,6 +8,7 @@ public class LobbyController : MonoBehaviour
 {
     public Button PlayButton;
     public GameObject LevelSelection;
+    public GameObject GameTitle;
     public Button QuitButton;
     private void Awake() 
     {
@@ -18,6 +19,7 @@ public class LobbyController : MonoBehaviour
     {
         SoundManager.Instance.Play(Sounds.ButtonClick);
         LevelSelection.SetActive(true);
+        GameTitle.SetActive(false);
     }
     private void QuitGame()
     {
